@@ -1,4 +1,4 @@
-package veriyapilari.AVLT;
+package veriyapilari.fAVLT;
 
 public class AVLTree {
     
