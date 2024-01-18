@@ -2,10 +2,12 @@ package veriyapilari.fAVLT;
 
 public class Main {
     Node root;
+
     public Main(){
         this.root = null;
     }
     
+    // 1. add function
     public void add(int a){
         root = addRecursive(root, a); 
     }
@@ -22,20 +24,36 @@ public class Main {
     }
 
     // 2. update node size 
-    node.height = 1 + max(height(node.lc) , height(node.rc)); 
+    node.height = 1 + max(height(node.lc) , boy(node.rc)); 
 
-    // 3.get balance value
+    // 3. get balance value
     int balance = balance(node);
 
-    public void remove(){
-
+    // 4. remove function
+    public void remove(int a){
+        root = removeRecursive(root,a);
     }
 
-    public void removeRecursive(){
+    private Node removeRecursive(Node node,int a){
+        if(node == null){
+            return node;
+        }else if(node.data < a){//right
+            return removeRecursive(node.rc, a);
+        }else if(node.data > a){
+            return removeRecursive(node.lc, a);
+        }else{
+            if(node.lc == null){
+                return node.rc;
+            }else if(node.rc == null){
+                return node.lc;
+            }else{
 
+            }
+        }
     }
 
-    public void preOrderTravel(){//ön
+    // 5. three different order function
+    public void preOrderTravel(){
         preOrderTravelRecursive(root);
     }
 
@@ -47,7 +65,7 @@ public class Main {
         }
     }
 
-    public void inOrderTravel(){//ara
+    public void inOrderTravel(){
         inOrderTravelRecursive(root);
     }
     
@@ -59,7 +77,7 @@ public class Main {
         }
     }
 
-    public void postOrderTravel(){//arka
+    public void postOrderTravel(){
         postOrderTravelRecursive(root);
     }
     
@@ -71,11 +89,21 @@ public class Main {
         }
     }
 
-
+    // 6. balance function
     public int balance(Node node){
         return height(node.lc) - height(node.rc);
     }
 
+    // 7. height function
+    public int height(Node node){
+        if(node == null){
+            return 0;
+        }else{
+            return node.height;
+        }
+    }
+
+    // 8. min and max function
     public int max(int a,int b){
         if(a > b){
             return a;
@@ -91,13 +119,4 @@ public class Main {
             return a;
         }
     }
-
-    public int height(Node node){
-        if(node == null){
-            return 0;
-        }else{
-            return node.height;
-        }
-    }
-
 }
