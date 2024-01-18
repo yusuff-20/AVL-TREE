@@ -21,8 +21,11 @@ public class Main {
         return node;
     }
 
-    // 2. düğüm boyunu güncelle 
-    node.height = 1 + max(boy(node.lc), boy(node.rc)); 
+    // 2. update node size 
+    node.height = 1 + max(height(node.lc) , height(node.rc)); 
+
+    // 3.get balance value
+    int balance = balance(node);
 
     public void remove(){
 
@@ -33,29 +36,45 @@ public class Main {
     }
 
     public void preOrderTravel(){//ön
-
+        preOrderTravelRecursive(root);
     }
 
-    public void preOrderTravelRecursive(){
-
+    private void preOrderTravelRecursive(Node node){
+        if(node != null){
+            System.out.println(node.data);
+            preOrderTravelRecursive(node.lc);
+            preOrderTravelRecursive(node.rc);
+        }
     }
 
     public void inOrderTravel(){//ara
-
+        inOrderTravelRecursive(root);
     }
     
-    public void inOrderTravelRecursive(){
-
+    private void inOrderTravelRecursive(Node node){
+        if(node != null){
+            inOrderTravelRecursive(node.lc);
+            System.out.println(node.data);
+            inOrderTravelRecursive(node.rc);
+        }
     }
 
     public void postOrderTravel(){//arka
-
+        postOrderTravelRecursive(root);
     }
     
-    public void postOrderTravelRecursive(){
-
+    private void postOrderTravelRecursive(Node node){
+        if(node != null){
+            postOrderTravelRecursive(node.lc);
+            postOrderTravelRecursive(node.rc);
+            System.out.println(node.data);
+        }
     }
 
+
+    public int balance(Node node){
+        return height(node.lc) - height(node.rc);
+    }
 
     public int max(int a,int b){
         if(a > b){
@@ -77,7 +96,7 @@ public class Main {
         if(node == null){
             return 0;
         }else{
-            return node.hei
+            return node.height;
         }
     }
 
