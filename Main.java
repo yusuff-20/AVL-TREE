@@ -6,30 +6,52 @@ public class Main {
     public Main(){
         this.root = null;
     }
-    
-    // 1. add function
-    public void add(int a){
-        root = addRecursive(root, a); 
-    }
 
-    private Node addRecursive(Node node,int a){
+    // 1. add function
+    public Node add(Node node,int data){
         if(node == null){
-            node = new Node(a);
-        }else if(node.data > a){
-            node.lc = addRecursive(node.lc, a);
-        }else if(node.data < a){
-            node.rc = addRecursive(node.rc, a);
+            node = new Node(data);
+        }else if(node.data > data){
+            node.lc = add(node.lc, data);
+        }else if(node.data < data){
+            node.rc = add(node.rc, data);
+        }
+        return node;
+        
+
+        // 2. update node size 
+        node.height = 1 + max(height(node.lc) , height(node.rc)); 
+
+        // 3. get balance value
+        int balance = balance(node);
+
+        //4. **************************************    ROTATIONS    ************************************** 
+        if(balance == 2 && data < node.lc.data){
+            System.out.println("");//çift sağ rotasyonu
+            return rightRotation(node);
+        }
+
+        if(balance == -2 && data > node.rc.data){
+            System.out.println("");//çift sol rotasyonu
+            return leftRotation(node);
+        }
+
+        if(balance == 2 && data > node.lc.data){
+            System.out.println("");//sol sağ rotasyonu
+            node.lc = leftRotation(node.lc);
+            return rightRotation(node);
+        }
+
+        if(balance == -2 && data < node.rc.data){
+            System.out.println("");//sağ sol rotasyonu
+            node.rc = rightRotation(node.rc);
+            return leftRotation(node);
         }
         return node;
     }
+    
 
-    // 2. update node size 
-    node.height = 1 + max(height(node.lc) , boy(node.rc)); 
-
-    // 3. get balance value
-    int balance = balance(node);
-
-    // 4. remove function
+    // 5. remove function
     public void remove(int a){
         root = removeRecursive(root,a);
     }
@@ -47,19 +69,34 @@ public class Main {
             }else if(node.rc == null){
                 return node.lc;
             }else{
-
+                int leftMax = maxf(node.lc);
+                node.data = leftMax;
+                node.lc = removeRecursive(node.lc, leftMax);
             }
+            return node;
         }
     }
 
-    // 5. three different order function
+
+    // 6. right Rotation function
+    public void rightRotation(){
+
+    }
+
+    // 7. left Rotation function
+    public void leftRotation(){
+
+    }
+
+
+    // 8. three different order function
     public void preOrderTravel(){
         preOrderTravelRecursive(root);
     }
 
     private void preOrderTravelRecursive(Node node){
         if(node != null){
-            System.out.println(node.data);
+            System.out.println(node.data + " ");
             preOrderTravelRecursive(node.lc);
             preOrderTravelRecursive(node.rc);
         }
@@ -72,7 +109,7 @@ public class Main {
     private void inOrderTravelRecursive(Node node){
         if(node != null){
             inOrderTravelRecursive(node.lc);
-            System.out.println(node.data);
+            System.out.println(node.data + " ");
             inOrderTravelRecursive(node.rc);
         }
     }
@@ -85,16 +122,16 @@ public class Main {
         if(node != null){
             postOrderTravelRecursive(node.lc);
             postOrderTravelRecursive(node.rc);
-            System.out.println(node.data);
+            System.out.println(node.data + " ");
         }
     }
 
-    // 6. balance function
+    // 9. balance function
     public int balance(Node node){
         return height(node.lc) - height(node.rc);
     }
 
-    // 7. height function
+    // 10. height function
     public int height(Node node){
         if(node == null){
             return 0;
@@ -103,20 +140,21 @@ public class Main {
         }
     }
 
-    // 8. min and max function
+    // 11. max function
+    public int maxf(Node node){
+        int maxdata = node.data;
+        while(node.rc != null){
+            maxdata = node.rc.data;
+            node = node.rc;
+        }
+        return maxdata;
+    }
+
     public int max(int a,int b){
         if(a > b){
             return a;
         }else{
             return b;
-        }
-    }
-
-    public int min(int a,int b){
-        if(a > b){
-            return b;
-        }else{
-            return a;
         }
     }
 }
