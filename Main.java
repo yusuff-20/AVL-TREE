@@ -16,34 +16,33 @@ public class Main {
         }else if(node.data < data){
             node.rc = add(node.rc, data);
         }
-        return node;
         
-
+        
         // 2. update node size 
-        node.height = 1 + max(height(node.lc) , height(node.rc)); 
+        node.height = 1 + max(height(node.lc) , height(node.rc));
 
         // 3. get balance value
         int balance = balance(node);
 
         //4. **************************************    ROTATIONS    ************************************** 
         if(balance == 2 && data < node.lc.data){
-            System.out.println("");//çift sağ rotasyonu
+            System.out.println("double right rotation");//çift sağ rotasyonu
             return rightRotation(node);
         }
 
         if(balance == -2 && data > node.rc.data){
-            System.out.println("");//çift sol rotasyonu
+            System.out.println("double left rotation");//çift sol rotasyonu
             return leftRotation(node);
         }
 
         if(balance == 2 && data > node.lc.data){
-            System.out.println("");//sol sağ rotasyonu
+            System.out.println("left right rotation");//sol sağ rotasyonu
             node.lc = leftRotation(node.lc);
             return rightRotation(node);
         }
 
         if(balance == -2 && data < node.rc.data){
-            System.out.println("");//sağ sol rotasyonu
+            System.out.println("right left rotation");//sağ sol rotasyonu
             node.rc = rightRotation(node.rc);
             return leftRotation(node);
         }
@@ -79,13 +78,13 @@ public class Main {
 
 
     // 6. right Rotation function
-    public void rightRotation(){
-
+    public Node rightRotation(Node node){
+        return node;
     }
 
     // 7. left Rotation function
-    public void leftRotation(){
-
+    public Node leftRotation(Node node){
+        return node;
     }
 
 
