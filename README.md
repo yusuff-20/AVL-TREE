@@ -1,0 +1,1 @@
+In this project I did coded AVL Tree. AVL tree is a tree derived from binary search tree. This tree contains a balance factor within itself, thanks to which the tree never grows unbalanced. And it saves us time finding content.
