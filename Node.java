@@ -1,4 +1,4 @@
-package veriyapilari.fAVLT;
+package Java.veriyapilari.fAVLT;
 
 public class Node {
     int data;
