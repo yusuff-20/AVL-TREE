@@ -35,7 +35,7 @@ public class AVLTree {
         }
 
         if(balance == 2 && data > node.lc.data){
-            System.out.println("left right rotation");
+            System.out.println("left right rotation");    
             node.lc = leftRotation(node.lc);
             return rightRotation(node);
         }
@@ -57,7 +57,7 @@ public class AVLTree {
     private Node removeRecursive(Node node,int a){
         if(node == null){
             return node;
-        }else if(node.data < a){//right
+        }else if(node.data < a){
             return removeRecursive(node.rc, a);
         }else if(node.data > a){
             return removeRecursive(node.lc, a);
@@ -77,7 +77,7 @@ public class AVLTree {
 
 
     // 6. right Rotation function
-    public Node rightRotation(Node node){
+    private Node rightRotation(Node node){
         Node y = node.lc;
         Node x = y.rc;
 
@@ -93,22 +93,21 @@ public class AVLTree {
     }
 
     // 7. left Rotation function
-    public Node leftRotation(Node node){
+    private Node leftRotation(Node node){
         Node y = node.rc;
         Node x = y.lc;
 
         // Rotation
         y.lc = node;
         node.rc = x;
-        // height update
+        // Update
         node.height = 1 + max(height(node.lc) , height(node.rc));
         y.height = 1 + max(height(y.lc) , height(y.rc));
 
         return y;
     }
 
-
-    // 8. three different order function
+    // 8. three different travel function
     public void preOrderTravel(Node node){
         preOrderTravelRecursive(root);
     }
@@ -146,12 +145,12 @@ public class AVLTree {
     }
 
     // 9. balance function
-    public int balance(Node node){
+    private int balance(Node node){
         return height(node.lc) - height(node.rc);
     }
 
     // 10. height function
-    public int height(Node node){
+    private int height(Node node){
         if(node == null){
             return 0;
         }else{
@@ -159,8 +158,8 @@ public class AVLTree {
         }
     }
 
-    // 11. max function
-    public int maxf(Node node){
+    // 11. max function for delete function
+    private int maxf(Node node){
         int maxdata = node.data;
         while(node.rc != null){
             maxdata = node.rc.data;
@@ -169,7 +168,8 @@ public class AVLTree {
         return maxdata;
     }
 
-    public int max(int a,int b){
+    // 12. max function for balance and height function
+    private int max(int a,int b){
         if(a > b){
             return a;
         }else{
